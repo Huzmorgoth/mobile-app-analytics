@@ -50,6 +50,7 @@ if side_bar_growth:
 
 side_bar_reten = st.sidebar.button('Generate Retention Graph')
 if side_bar_reten:
+    st.subheader('Users Retention Graph')
     retention_df = acq_obj.retention_table(df,
                                            period='month',
                                            event_filter='install',
@@ -60,12 +61,14 @@ if side_bar_reten:
 
 side_bar_funnel = st.sidebar.button('Generate Funnel Graph')
 if side_bar_funnel:
+    st.subheader('Funnel Graph')
     steps = ['install', 'signup', 'create_content', 'post_content']
     fig_3 = vis_obj.plot_stacked_funnel(df=df, steps=steps, col='user_category')
     st.plotly_chart(fig_3)
 
 side_bar_journey = st.sidebar.button('Generate User Journey Graph')
 if side_bar_journey:
+    st.subheader('Users Journey')
     fig_4 = vis_obj.plot_user_flow(df=df, starting_step='install')
     st.plotly_chart(fig_4)
 
