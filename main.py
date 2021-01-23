@@ -41,7 +41,7 @@ if side_bar_activ:
                                               event=str(event),
                                               user_category='user_category',
                                               period=str(period),
-                                              month_format='period')
+                                              month_format='datetime')
     st.dataframe(activity_stats)
 
 #Visualize user growth per period
