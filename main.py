@@ -30,7 +30,7 @@ if side_bar_but:
     cohort = acq_obj.cohort_events_acquisition(df=df,
                                                event=str(event),
                                                period=str(period),
-                                               month_format='period')
+                                               month_format='datetime')
     st.dataframe(cohort)
 
 #Activity statistics per period
