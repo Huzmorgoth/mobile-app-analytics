@@ -29,7 +29,7 @@ if side_bar_but:
     st.subheader('User Acquisition')
     cohort = acq_obj.cohort_events_acquisition(df=df,
                                                event=str(event),
-                                               period=str(period)'
+                                               period=str(period),
                                                month_format='period')
     st.dataframe(cohort)
 
