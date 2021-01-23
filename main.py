@@ -8,6 +8,7 @@ from Resources.VisualizationClass import Visualisations
 #generate dataset
 
 ds_obj = GenerateDataset()
+
 df = ds_obj.build()
 st.title('Mobile App Statistics')
 st.header('User Events Dataset:')
@@ -15,14 +16,21 @@ st.dataframe(df)
 
 #Extracting acquisition time, user cohorts, events period
 acq_obj = UserAcquisition()
+
 st.sidebar.header('Explore Data:')
 event = st.sidebar.radio('select the event for calculating acquisition,'
                          'activity, and for visualizations:', ('install', 'signup'))
+
 period = st.sidebar.radio('select the period:', ('week','month'))
+
 side_bar_but = st.sidebar.button('User Acquisition')
+
 if side_bar_but:
     st.subheader('User Acquisition')
-    cohort = acq_obj.cohort_events_acquisition(df=df, event=str(event))
+    cohort = acq_obj.cohort_events_acquisition(df=df,
+                                               event=str(event),
+                                               period=str(period)'
+                                               month_format='period')
     st.dataframe(cohort)
 
 #Activity statistics per period
@@ -42,9 +50,9 @@ vis_obj = Visualisations()
 side_bar_growth = st.sidebar.button('Generate Growth Graph')
 if side_bar_growth:
     st.subheader('Users Growth Per Period')
-    fig_1 = vis_obj.growth(df=df, event='install',
+    fig_1 = vis_obj.growth(df=df, event=str(event),
                            user_category='user_category',
-                           period='month',
+                           period=str(period),
                            month_format='period')
     st.plotly_chart(fig_1)
 
@@ -52,8 +60,8 @@ side_bar_reten = st.sidebar.button('Generate Retention Graph')
 if side_bar_reten:
     st.subheader('Users Retention Graph')
     retention_df = acq_obj.retention_table(df,
-                                           period='month',
-                                           event_filter='install',
+                                           period=str(period),
+                                           event_filter=str(event),
                                            month_format='datetime')
     # st.text('ret_pct:', retention_df.index.get_level_values(1))
     fig_2 = vis_obj.retention_heatmap(retention_df[1].apply(lambda x: x * 100))
@@ -71,8 +79,3 @@ if side_bar_journey:
     st.subheader('Users Journey')
     fig_4 = vis_obj.plot_user_flow(df=df, starting_step='install')
     st.plotly_chart(fig_4)
-
-
-
-
-
